@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Check if the destination directory exists
+dest_dir="$HOME/Documents/GitHub/config/scripts"
+if [ ! -d "$dest_dir" ]; then
+    echo "Error: Destination directory '$dest_dir' does not exist."
+    exit 1
+fi
+
+# Copy all executable files to the destination directory
+sudo cp * "$dest_dir"
+
+echo "Scripts copied to $dest_dir."
+

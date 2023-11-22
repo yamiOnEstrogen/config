@@ -1,0 +1,16 @@
+#!/bin/bash
+
+script_dir="/usr/local/bin"
+
+echo "Scripts in $script_dir:"
+echo "=============================="
+
+# List all executable files in /usr/local/bin
+for script in "$script_dir"/*; do
+    if [ -x "$script" ]; then
+        echo "$(basename "$script")"
+    fi
+done
+
+echo "=============================="
+
