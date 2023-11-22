@@ -1,0 +1,36 @@
+#!/bin/bash
+
+echo "System Information"
+echo "=============================="
+
+# Hostname
+hostname=$(hostname)
+echo "Hostname: $hostname"
+
+# Operating System
+os_info=$(uname -a)
+echo "Operating System: $os_info"
+
+# CPU Information
+echo -e "\nCPU Information:"
+cpu_info=$(lscpu)
+echo "$cpu_info"
+
+# Memory Usage
+echo -e "\nMemory Usage:"
+free -h
+
+# Disk Space
+echo -e "\nDisk Space:"
+df -h
+
+# Network Interfaces
+echo -e "\nNetwork Interfaces:"
+ifconfig -a
+
+# Uptime
+echo -e "\nUptime:"
+uptime
+
+echo "=============================="
+

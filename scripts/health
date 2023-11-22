@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "System Health Check"
+echo "=============================="
+
+# CPU Usage
+cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | awk -F. '{print $1}')
+echo "CPU Usage: $cpu_usage%"
+
+# Memory Usage
+memory_usage=$(free | awk '/Mem/{printf("%.2f%"), $3/$2*100}')
+echo "Memory Usage: $memory_usage"
+
+# Disk Space
+disk_space=$(df -h / | awk 'NR==2{print $5}')
+echo "Disk Space Usage: $disk_space"
+
+# System Load
+load_average=$(uptime | awk -F'[a-z]:' '{print $2}')
+echo "System Load Average: $load_average"
+
+echo "=============================="
+

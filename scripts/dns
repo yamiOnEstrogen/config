@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Check if a domain or filename is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <domain or filename>"
+    exit 1
+fi
+
+input="$1"
+
+echo "DNS Lookup Tool"
+echo "=============================="
+
+# Check if the input is a file or a single domain
+if [ -f "$input" ]; then
+    # Read domains from the file and perform DNS lookup
+    while IFS= read -r domain; do
+        echo "Domain: $domain"
+        nslookup "$domain"
+        echo "----------------------"
+    done < "$input"
+else
+    # Perform DNS lookup for the single domain
+    echo "Domain: $input"
+    nslookup "$input"
+fi
+
+echo "=============================="
+

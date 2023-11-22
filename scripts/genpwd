@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Default password length
+password_length=12
+
+# Check if a custom password length is provided
+if [ -n "$1" ]; then
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+        password_length="$1"
+    else
+        echo "Invalid password length. Using default length: $password_length"
+    fi
+fi
+
+# Generate random password
+password=$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9!@#$%^&*()_+-=' | head -c "$password_length")
+
+echo "Generated Password:"
+echo "$password"
+

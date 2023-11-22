@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Check if a filename is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <filename>"
+    exit 1
+fi
+
+filename="$1"
+
+# Create an executable script
+sudo touch "$filename"
+sudo chmod a+x "$filename"
+sudo vim "$filename"
+

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Check if a path is provided, default to current directory if not
+path="${1:-.}"
+
+# Check if the specified path exists
+if [ ! -d "$path" ]; then
+    echo "Error: The specified path '$path' does not exist."
+    exit 1
+fi
+
+echo "Disk Usage Analyzer for $path"
+echo "=============================="
+
+# List the top 10 largest directories
+echo -e "\nTop 10 Largest Directories:"
+du -h --max-depth=1 "$path" 2>/dev/null | sort -rh | head -n 10
+
+# List the top 10 largest files
+echo -e "\nTop 10 Largest Files:"
+find "$path" -type f -exec du -h {} + 2>/dev/null | sort -rh | head -n 10
+
+echo "=============================="
+

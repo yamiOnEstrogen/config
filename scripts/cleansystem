@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Starting cleanup."
+
+# Remove temporary files
+sudo rm -rf /tmp/* > /dev/null
+
+# Clean package cache
+sudo pacman -Sc --noconfirm > /dev/null
+
+# Remove old log files
+sudo find /var/log -type f -name "*.log" -delete > /dev/null
+
+# Remove old archived logs
+sudo find /var/log -type f -name "*.gz" -delete > /dev/null
+
+echo "Cleanup complete."

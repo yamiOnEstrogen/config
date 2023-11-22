@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Check if a log file is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <log_file>"
+    exit 1
+fi
+
+log_file="$1"
+
+# Check if the log file exists
+if [ ! -f "$log_file" ]; then
+    echo "Error: The specified log file '$log_file' does not exist."
+    exit 1
+fi
+
+echo "Log Analyzer for $log_file"
+echo "=============================="
+
+# Define patterns to search for (customize as needed)
+error_pattern="ERROR"
+warning_pattern="WARNING"
+info_pattern="INFO"
+
+# Count occurrences of each pattern
+error_count=$(grep -c "$error_pattern" "$log_file")
+warning_count=$(grep -c "$warning_pattern" "$log_file")
+info_count=$(grep -c "$info_pattern" "$log_file")
+
+# Display results
+echo "Occurrences:"
+echo "  - $error_pattern: $error_count"
+echo "  - $warning_pattern: $warning_count"
+echo "  - $info_pattern: $info_count"
+
+echo "=============================="
+

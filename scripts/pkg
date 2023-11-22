@@ -1,0 +1,39 @@
+#!/bin/bash
+
+case "$1" in
+  /new)
+    if [ -z "$2" ]; then
+      echo "Usage: $0 /new <package>"
+    else
+      echo "Installing new package: $2"
+      sudo pacman -S "$2"
+    fi
+    ;;
+
+  /update)
+    echo "Updating all packages"
+    sudo pacman -Sy
+    ;;
+
+  /rm)
+    if [ -z "$2" ]; then
+      echo "Usage: $0 /rm <package>"
+    else
+      echo "The following packages will be removed:"
+      sudo pacman -Rns --dry-run "$2"
+      
+      read -p "Do you want to proceed with the removal? (y/n): " remove_choice
+      if [ "$remove_choice" == "y" ] || [ "$remove_choice" == "Y" ]; then
+        echo "Removing package: $2"
+        sudo pacman -Rns "$2"
+      else
+        echo "Removal aborted."
+      fi
+    fi
+    ;;
+
+  *)
+    echo "Usage: $0 { /new <package> | /update | /rm <package> }"
+    ;;
+esac
+
