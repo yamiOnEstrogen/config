@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Check if the API key is set
+if [ -z "$OPENWEATHERMAP_API_KEY" ]; then
+    echo "Error: OpenWeatherMap API key not set. Please set the 'OPENWEATHERMAP_API_KEY' environment variable."
+    exit 1
+fi
+
+# Check if a location is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <city>"
+    exit 1
+fi
+
+# Combine all command-line arguments into a single string
+city="$*"
+
+# Use curl to fetch weather data from OpenWeatherMap API
+weather_data=$(curl -s "http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$OPENWEATHERMAP_API_KEY&units=metric")
+
+
+# Check if the API request was successful
+if [ "$(echo "$weather_data" | jq -r '.cod')" != "200" ]; then
+    echo "Error: Unable to retrieve weather data. Please check your city name and try again."
+    exit 1
+fi
+
+# Parse relevant information from the API response
+temperature=$(echo "$weather_data" | jq -r '.main.temp')
+description=$(echo "$weather_data" | jq -r '.weather[0].description')
+
+echo "Weather in $city:"
+echo "Temperature: $temperature°C"
+echo "Description: $description"
+
