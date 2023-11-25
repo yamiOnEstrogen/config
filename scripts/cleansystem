@@ -4,14 +4,30 @@ echo "Starting cleanup."
 
 # Remove temporary files
 sudo rm -rf /tmp/* > /dev/null
+echo "Temporary files removed."
 
 # Clean package cache
 sudo pacman -Sc --noconfirm > /dev/null
+echo "Package cache cleaned."
 
 # Remove old log files
 sudo find /var/log -type f -name "*.log" -delete > /dev/null
+echo "Old log files removed."
 
 # Remove old archived logs
 sudo find /var/log -type f -name "*.gz" -delete > /dev/null
+echo "Old archived logs removed."
+
+# Remove old journal files
+sudo journalctl --vacuum-size=50M > /dev/null
+echo "Old journal files removed."
+
+# Remove orphaned packages
+sudo pacman -Rns $(pacman -Qdtq) --noconfirm > /dev/null
+echo "Orphaned packages removed."
+
+# Clean the trash
+rm -rf ~/.local/share/Trash/* > /dev/null
+echo "Trash cleaned."
 
 echo "Cleanup complete."
