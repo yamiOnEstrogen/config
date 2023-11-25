@@ -1,3 +1,8 @@
+# This script was made for my Media Server that I am working on #
+# Developer: @withervt #
+# Created: 11/24/2023 #
+
+
 import os
 import sys
 import argparse
